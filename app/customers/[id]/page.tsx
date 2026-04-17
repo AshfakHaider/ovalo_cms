@@ -68,29 +68,29 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   const months = Array.from({ length: 12 }, (_, i) => i + 1)
 
   return (
-    <div className="max-w-6xl mx-auto pb-20">
+    <div className="max-w-6xl mx-auto pb-20 px-1 md:px-0">
       <header className="mb-10">
-        <div className="flex justify-between items-center mb-6">
-          <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+          <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm">
             <ArrowLeft className="w-4 h-4" /> Back to Customers
           </Link>
           <button 
             onClick={handleDeleteCustomer}
-            className="text-[var(--color-brand-coral)] hover:bg-[var(--color-brand-coral)]/10 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-[var(--color-brand-coral)]/20"
+            className="w-full sm:w-auto text-[var(--color-brand-coral)] hover:bg-[var(--color-brand-coral)]/10 px-4 py-2 rounded-xl flex items-center justify-center gap-2 transition-colors border border-[var(--color-brand-coral)]/20 text-sm"
           >
             <Trash2 className="w-4 h-4" />
             Delete Customer
           </button>
         </div>
         
-        <div className="flex justify-between items-end">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div>
-            <h1 className="text-4xl font-bold text-white mb-2">{customer.name}</h1>
-            <p className="text-slate-400">Rate: ৳{Number(customer.ratePerLitre).toFixed(2)} / Litre</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{customer.name}</h1>
+            <p className="text-slate-400 text-sm md:text-base">Rate: ৳{Number(customer.ratePerLitre).toFixed(2)} / Litre</p>
           </div>
-          <div className="text-right glass p-4 rounded-2xl">
-            <p className="text-sm text-slate-400 mb-1">Total Due</p>
-            <p className={`text-3xl font-bold ${ledger.totalDue > 0 ? 'text-[var(--color-brand-coral)]' : 'text-[var(--color-brand-teal)]'}`}>
+          <div className="w-full md:w-auto text-left md:text-right glass p-6 rounded-2xl">
+            <p className="text-xs md:text-sm text-slate-400 mb-1 uppercase tracking-wider">Total Due</p>
+            <p className={`text-3xl md:text-4xl font-bold ${ledger.totalDue > 0 ? 'text-[var(--color-brand-coral)]' : 'text-[var(--color-brand-teal)]'}`}>
               ৳{ledger.totalDue.toFixed(2)}
             </p>
           </div>
@@ -171,7 +171,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                 return (
                   <div key={m} className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col justify-between hover:bg-white/10 transition-colors">
                     <div className="flex justify-between items-start mb-2">
-                      <span className="text-slate-400 font-medium">{new Date(2000, m - 1).toLocaleString('default', { month: 'short' })}</span>
+                      <span className="text-slate-400 text-sm font-medium">{new Date(2000, m - 1).toLocaleString('default', { month: 'short' })}</span>
                       {monthData && (
                         <div className={`w-2 h-2 rounded-full ${
                           monthData.status === 'cleared' ? 'bg-[var(--color-brand-teal)] shadow-[0_0_8px_rgba(0,229,190,0.8)]' : 
@@ -182,11 +182,11 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                     </div>
                     {monthData ? (
                       <div className="mt-2">
-                        <p className="text-lg font-bold text-white">৳{monthData.billed.toFixed(2)}</p>
-                        <p className="text-xs text-slate-500 mt-1">Paid: ৳{monthData.paid.toFixed(2)}</p>
+                        <p className="text-base md:text-lg font-bold text-white">৳{monthData.billed.toFixed(2)}</p>
+                        <p className="text-[10px] md:text-xs text-slate-500 mt-1 uppercase tracking-wider">Paid: ৳{monthData.paid.toFixed(2)}</p>
                       </div>
                     ) : (
-                      <div className="mt-2 flex items-center h-full text-slate-600 text-sm">No data</div>
+                      <div className="mt-2 flex items-center h-full text-slate-600 text-xs">No data</div>
                     )}
                   </div>
                 )
@@ -195,20 +195,20 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
           </motion.div>
 
           {/* Payment History Timeline */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass p-8 rounded-3xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass p-6 md:p-8 rounded-3xl">
             <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
               <Clock className="w-5 h-5 text-slate-400" />
               Payment History
             </h3>
             
             {customer.payments && customer.payments.length > 0 ? (
-              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent">
+              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/10 before:to-transparent">
                 {customer.payments.map((payment: any, i: number) => (
-                  <div key={payment.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-[#0D0F1A] text-[var(--color-brand-teal)] shadow-[0_0_10px_rgba(0,229,190,0.2)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                  <div key={payment.id} className="relative flex items-center group">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white/20 bg-[#0D0F1A] text-[var(--color-brand-teal)] shadow-[0_0_10px_rgba(0,229,190,0.2)] shrink-0 z-10">
                       <DollarSign className="w-4 h-4" />
                     </div>
-                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass p-4 rounded-2xl">
+                    <div className="ml-6 flex-1 glass p-4 rounded-2xl">
                       <div className="flex justify-between items-start mb-1">
                         <span className="font-bold text-white">৳{Number(payment.amount).toFixed(2)}</span>
                         <span className="text-xs text-slate-400">{new Date(payment.paymentDate).toLocaleDateString()}</span>

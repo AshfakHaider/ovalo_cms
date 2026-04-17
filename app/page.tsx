@@ -50,30 +50,30 @@ export default function CustomersPage() {
   ) || []
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <header className="flex justify-between items-center mb-10">
+    <div className="max-w-6xl mx-auto px-1 md:px-0">
+      <header className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 mb-10">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">Customers</h1>
-          <p className="text-slate-400">Manage your milk delivery clients and balances.</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Customers</h1>
+          <p className="text-slate-400 text-sm md:text-base">Manage your milk delivery clients and balances.</p>
         </div>
         
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="bg-[var(--color-brand-teal)] text-[#0D0F1A] hover:bg-[#00c9a7] px-6 py-3 rounded-full font-semibold flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(0,229,190,0.3)] hover:shadow-[0_0_30px_rgba(0,229,190,0.5)]"
+          className="bg-[var(--color-brand-teal)] text-[#0D0F1A] hover:bg-[#00c9a7] px-6 py-3 rounded-full font-semibold flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(0,229,190,0.3)] hover:shadow-[0_0_30px_rgba(0,229,190,0.5)] w-full sm:w-auto"
         >
           <Plus className="w-5 h-5" />
           Add Customer
         </button>
       </header>
 
-      <div className="mb-8 relative max-w-md">
+      <div className="mb-8 relative w-full md:max-w-md">
         <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
         <input 
           type="text"
           placeholder="Search customers..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full glass bg-transparent rounded-full py-3 pl-12 pr-6 text-white placeholder-slate-400 focus:outline-none focus:border-[var(--color-brand-teal)] transition-colors"
+          className="w-full glass bg-transparent rounded-full py-3 pl-12 pr-6 text-white placeholder-slate-400 focus:outline-none focus:border-[var(--color-brand-teal)] transition-colors text-sm md:text-base"
           suppressHydrationWarning
         />
       </div>

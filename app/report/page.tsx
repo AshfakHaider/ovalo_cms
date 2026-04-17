@@ -48,54 +48,58 @@ export default function ReportPage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto pb-20">
-      <header className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 mb-10">
+    <div className="max-w-6xl mx-auto pb-20 px-2 md:px-0">
+      <header className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6 mb-10">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2 flex items-center gap-3">
-            <FileText className="w-8 h-8 text-[var(--color-brand-teal)]" />
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 flex items-center gap-3">
+            <FileText className="w-8 h-8 text-[var(--color-brand-teal)] shrink-0" />
             Monthly Dues Report
           </h1>
-          <p className="text-slate-400">Overview of customers with pending balances.</p>
+          <p className="text-slate-400 text-sm md:text-base">Overview of customers with pending balances.</p>
         </div>
         
-        <div className="flex flex-wrap items-center gap-3">
-          <select 
-            value={selectedMonth} 
-            onChange={(e) => setSelectedMonth(Number(e.target.value))}
-            className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white outline-none focus:border-[var(--color-brand-teal)]"
-            suppressHydrationWarning
-          >
-            {months.map(m => (
-              <option key={m} value={m} className="bg-[#0D0F1A]">
-                {new Date(2000, m - 1).toLocaleString('default', { month: 'long' })}
-              </option>
-            ))}
-          </select>
-          
-          <select 
-            value={selectedYear} 
-            onChange={(e) => setSelectedYear(Number(e.target.value))}
-            className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white outline-none focus:border-[var(--color-brand-teal)]"
-            suppressHydrationWarning
-          >
-            {years.map(y => (
-              <option key={y} value={y} className="bg-[#0D0F1A]">{y}</option>
-            ))}
-          </select>
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
+          <div className="flex gap-3">
+            <select 
+              value={selectedMonth} 
+              onChange={(e) => setSelectedMonth(Number(e.target.value))}
+              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white outline-none focus:border-[var(--color-brand-teal)] text-sm"
+              suppressHydrationWarning
+            >
+              {months.map(m => (
+                <option key={m} value={m} className="bg-[#0D0F1A]">
+                  {new Date(2000, m - 1).toLocaleString('default', { month: 'long' })}
+                </option>
+              ))}
+            </select>
+            
+            <select 
+              value={selectedYear} 
+              onChange={(e) => setSelectedYear(Number(e.target.value))}
+              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white outline-none focus:border-[var(--color-brand-teal)] text-sm"
+              suppressHydrationWarning
+            >
+              {years.map(y => (
+                <option key={y} value={y} className="bg-[#0D0F1A]">{y}</option>
+              ))}
+            </select>
+          </div>
 
-          <button 
-            onClick={handleExportCSV}
-            className="bg-white/10 hover:bg-white/20 text-white px-5 py-2.5 rounded-xl font-medium transition-colors"
-          >
-            CSV
-          </button>
-          <button 
-            onClick={handleExportPDF}
-            className="bg-[var(--color-brand-teal)] text-[#0D0F1A] hover:bg-[#00c9a7] px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(0,229,190,0.3)]"
-          >
-            <Download className="w-4 h-4" />
-            PDF
-          </button>
+          <div className="flex gap-3">
+            <button 
+              onClick={handleExportCSV}
+              className="flex-1 sm:flex-none bg-white/10 hover:bg-white/20 text-white px-5 py-2.5 rounded-xl font-medium transition-colors text-sm"
+            >
+              CSV
+            </button>
+            <button 
+              onClick={handleExportPDF}
+              className="flex-[2] sm:flex-none bg-[var(--color-brand-teal)] text-[#0D0F1A] hover:bg-[#00c9a7] px-5 py-2.5 rounded-xl font-medium flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(0,229,190,0.3)] text-sm"
+            >
+              <Download className="w-4 h-4" />
+              PDF Export
+            </button>
+          </div>
         </div>
       </header>
 
