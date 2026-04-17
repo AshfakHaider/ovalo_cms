@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model Customer {
+  id           String     @id @default(uuid())
+  name         String
+  ratePerLitre Decimal    @map("rate_per_litre") @db.Decimal(10, 2)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  deliveries   Delivery[]
+  payments     Payment[]
+
+  @@map("customers")
+}
+
+model Delivery {
+  id             String   @id @default(uuid())
+  customerId     String   @map("customer_id")
+  month          Int
+  year           Int
+  quantityLitres Decimal  @map("quantity_litres") @db.Decimal(10, 2)
+  rateAtTime     Decimal  @map("rate_at_time") @db.Decimal(10, 2)
+  createdAt      DateTime @default(now()) @map("created_at")
+  customer       Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId, month, year])
+  @@map("deliveries")
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  customerId  String   @map("customer_id")
+  amount      Decimal  @db.Decimal(10, 2)
+  paymentDate DateTime @map("payment_date")
+  note        String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}

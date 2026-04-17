@@ -1,0 +1,12 @@
+{
+  "customers": [
+    {
+      "id": "cust-1776424969372",
+      "name": "Sattar",
+      "ratePerLitre": 90,
+      "createdAt": "2026-04-17T11:22:49.372Z"
+    }
+  ],
+  "deliveries": [],
+  "payments": []
+}
