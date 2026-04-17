@@ -21,14 +21,14 @@ export async function GET(req: Request) {
     const report = []
 
     for (const customer of customersData) {
-      const totalBilled = customer.deliveries.reduce((sum, d) => sum + (Number(d.quantityLitres) * Number(d.rateAtTime)), 0)
-      const totalPaid = customer.payments.reduce((sum, p) => sum + Number(p.amount), 0)
+      const totalBilled = customer.deliveries.reduce((sum: number, d: any) => sum + (Number(d.quantityLitres) * Number(d.rateAtTime)), 0)
+      const totalPaid = customer.payments.reduce((sum: number, p: any) => sum + Number(p.amount), 0)
       const due = totalBilled - totalPaid
 
       if (due > 0) {
-        const currentMonthDeliveries = customer.deliveries.filter(d => d.month === currentMonth && d.year === currentYear)
-        const currentMonthQty = currentMonthDeliveries.reduce((sum, d) => sum + Number(d.quantityLitres), 0)
-        const currentMonthBill = currentMonthDeliveries.reduce((sum, d) => sum + (Number(d.quantityLitres) * Number(d.rateAtTime)), 0)
+        const currentMonthDeliveries = customer.deliveries.filter((d: any) => d.month === currentMonth && d.year === currentYear)
+        const currentMonthQty = currentMonthDeliveries.reduce((sum: number, d: any) => sum + Number(d.quantityLitres), 0)
+        const currentMonthBill = currentMonthDeliveries.reduce((sum: number, d: any) => sum + (Number(d.quantityLitres) * Number(d.rateAtTime)), 0)
 
         report.push({
           id: customer.id,
