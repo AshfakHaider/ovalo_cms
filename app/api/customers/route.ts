@@ -15,7 +15,7 @@ export async function GET() {
     }
   })
   
-  const customers = customersData.map(c => {
+  const customers = customersData.map((c: any) => {
     const totalBilled = c.deliveries.reduce((sum, d) => sum + (Number(d.quantityLitres) * Number(d.rateAtTime)), 0)
     const totalPaid = c.payments.reduce((sum, p) => sum + Number(p.amount), 0)
     
